@@ -116,12 +116,18 @@ class User extends FSD_Controller
 				{
 					if($query[0]["Status"] == "Enabled")
 					{
+						$settings = $this->setting_model->get_all();
+						foreach ($settings as $s)
+							$data['key'][$s['Key']] = $s['Value'];
+
 						$session = array(
 							'MemberID' => $query[0]['ID'],
 							'MemberEmail' => $query[0]['Email'],
 							'MemberFirstName' => $query[0]['FirstName'],
 							'MemberLastName' => $query[0]['LastName'],
 							'MemberPhone' => $query[0]['Mobile'],
+							'MemberCurrency' => $query[0]['Currency'],
+							'IDR' => $data['key']['idr'],
 							'is_member_logged_in' => TRUE 
 						);
 						$this->session->set_userdata($session);					
@@ -274,6 +280,24 @@ class User extends FSD_Controller
 	{
 		$this->session->set_flashdata("success", $this->lang->line('error_unsubscribe_msg'));
 		redirect('login');
+	}
+
+	public function change_currency()
+	{
+		$member_id = $this->session->userdata('MemberID');
+		$member_currency = $this->input->post('currency', TRUE);
+		$userdata = [
+			'Currency' => $member_currency,
+		];
+		$update = $this->db->update('gsm_members', ['Currency' => $member_currency], ['ID' => $member_id]);
+
+		// reset session currency
+		$this->session->unset_userdata('MemberCurrency');
+
+		// set session currency
+		$this->session->set_userdata('MemberCurrency', $member_currency);
+		echo json_encode($update);
+		
 	}
 }
 

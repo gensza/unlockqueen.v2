@@ -219,7 +219,7 @@
                             <li class="nav-item topbar-user dropdown hidden-caret">
                                 <p class="opacity-100" style="color:dark-blue">
                                     <!-- <marquee behavior="scroll" direction="left">iCloud MEID / GSM BYPASS WITH SIGNAL SERVICE ON, iCloud MEID / GSM BYPASS WITH SIGNAL SERVICE ON</marquee> -->
-                                    <marquee behavior="scroll" direction="left"><?= $notif['push_headline'] ?></marquee>
+                                    <marquee behavior="scroll" direction="left"><?= $key['push_headline'] ?></marquee>
 
                                 </p>
                             </li>
@@ -248,8 +248,8 @@
                                                         <span class="block text-muted">
                                                             Admin send messages to you
                                                         </span>
-                                                        <h6 class="p-3"><?= $notif['push_notification'] ?></h6>
-                                                        <span class="time"><?= $notif_updated['push_notification'] ?></span>
+                                                        <h6 class="p-3"><?= $key['push_notification'] ?></h6>
+                                                        <span class="time"><?= $key_updated['push_notification'] ?></span>
                                                     </div>
                                                 </a>
                                                 
@@ -262,20 +262,20 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="currency-icon">
-                                        <i class="fas fa-dollar-sign"></i>
-                                        <span class="currency-text">USD</span>
+                                        <?= $this->session->userdata('MemberCurrency') == 'IDR' ? '<i class="fas fa-money-bill-wave"></i>' :'<i class="fas fa-dollar-sign"></i>' ?>
+                                        <span class="currency-text"><?= $this->session->userdata('MemberCurrency') ?></span>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <button class="dropdown-item" onclick="changeCurrency('USD')">
                                             <i class="fas fa-dollar-sign"></i> USD
-                                        </a>
+                                        </button>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <button class="dropdown-item" onclick="changeCurrency('IDR')">
                                             <i class="fas fa-money-bill-wave"></i> IDR
-                                        </a>
+                                        </button>
                                     </li>
                                 </ul>
                             </li>
@@ -398,6 +398,19 @@
                 }
             };
         })();
+    }
+
+    function changeCurrency(currency) {
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('user/change_currency') ?>",
+            data: {
+                currency: currency
+            },
+            success: function(data) {
+                location.reload();
+            }
+        });
     }
     </script>
 

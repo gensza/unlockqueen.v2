@@ -15,6 +15,7 @@ class dashboard extends FSD_Controller
 		$this->load->model('fileservices_model');
 		$this->load->model('credit_model');
 		$this->load->model('payment_model');
+		$this->load->helper('formatcurrency_helper');
 	}
 	
 	public function index()
@@ -38,10 +39,10 @@ class dashboard extends FSD_Controller
 
 		$settings = $this->setting_model->get_all();
 		foreach ($settings as $s)
-			$data['notif'][$s['Key']] = $s['Value'];
+			$data['key'][$s['Key']] = $s['Value'];
 
 		foreach ($settings as $s)
-			$data['notif_updated'][$s['Key']] = $s['UpdatedDateTime'];
+			$data['key_updated'][$s['Key']] = $s['UpdatedDateTime'];
 
 		$data['content'] = "member/dashboard";
 		$data['content_js'] = "dashboard/dashboard.js";

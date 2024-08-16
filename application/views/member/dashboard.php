@@ -18,15 +18,15 @@
 				<div class="card card-stats card-primary card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-5">
+					<div class="col-4">
 						<div class="icon-big text-center">
 						<i class="fas fa-wallet"></i>
 						</div>
 					</div>
-					<div class="col-7 col-stats">
+					<div class="col-8 col-stats">
 						<div class="numbers">
 						<p class="card-category">Balance</p>
-						<h4 class="card-title"><?= number_format($credit, 2) ?></h4>
+						<h4 class="card-title"><?= format_currency($credit) ?></h4>
 						</div>
 					</div>
 					</div>
@@ -37,15 +37,15 @@
 				<div class="card card-stats card-info card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-5">
+					<div class="col-4">
 						<div class="icon-big text-center">
 						<i class="fas fa-money-check"></i>
 						</div>
 					</div>
-					<div class="col-7 col-stats">
+					<div class="col-8 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total Credit</p>
-						<h4 class="card-title"><?= number_format($total_credit, 2) ?></h4>
+						<h4 class="card-title"><?= format_currency($total_credit) ?></h4>
 						</div>
 					</div>
 					</div>
@@ -56,12 +56,12 @@
 				<div class="card card-stats card-success card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-5">
+					<div class="col-4">
 						<div class="icon-big text-center">
 						<i class="fas fa-layer-group"></i>
 						</div>
 					</div>
-					<div class="col-7 col-stats">
+					<div class="col-8 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total IMEI Order</p>
 						<h4 class="card-title"><?= $total_order ?></h4>
@@ -75,12 +75,12 @@
 				<div class="card card-stats card-secondary card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-5">
+					<div class="col-4">
 						<div class="icon-big text-center">
 						<i class="fas fa-server"></i>
 						</div>
 					</div>
-					<div class="col-7 col-stats">
+					<div class="col-8 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total Server Order</p>
 						<h4 class="card-title"><?= $total_order ?></h4>
@@ -326,11 +326,11 @@
 			</div>
 		</div>
 		
-		<script src="/indbypass/assets/assets_members/js/plugin/chart.js/chart.min.js"></script>
-		<script src="/indbypass/assets/assets_members/js/jquery-3.6.0.js"></script>
-		<script src="/indbypass/assets/assets_members/js/bootstrap-notify.min.js"></script>
-		<script src="/indbypass/assets/assets_members/js/circles.js"></script>
-		<script src="/indbypass/assets/assets_members/js/demo.js"></script>
+		<script src="<?= base_url() ?>/assets/assets_members/js/plugin/chart.js/chart.min.js"></script>
+		<script src="<?= base_url() ?>/assets/assets_members/js/jquery-3.6.0.js"></script>
+		<script src="<?= base_url() ?>/assets/assets_members/js/bootstrap-notify.min.js"></script>
+		<script src="<?= base_url() ?>/assets/assets_members/js/circles.js"></script>
+		<script src="<?= base_url() ?>/assets/assets_members/js/demo.js"></script>
 	</body>
 </html>
 
