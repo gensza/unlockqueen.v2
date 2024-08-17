@@ -63,7 +63,7 @@ div.dataTables_wrapper div.dataTables_filter input {
                                 <tr>
                                     <th style="width: 100%;">Service</th>
                                     <th style="width: 0%;">Delivery Time</th>
-                                    <th style="width: 0%;">Price</th>
+                                    <th style="width: 0%;">Price&nbsp;(<?= $this->session->userdata('MemberCurrency') ?>)</th>
                                 </tr>
                             </thead>
                         </table>

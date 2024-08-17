@@ -81,7 +81,7 @@
                                     <tr>
                                         <th style="width: 40%;">Service</th>
                                         <th style="width: 10%;">Delivery Time</th>
-                                        <th style="width: 10%;">Price ($)</th>
+                                        <th style="width: 10%;">Price (<?= $this->session->userdata('MemberCurrency') ?>)</th>
                                     </tr>
                                 </thead>
                             </table>

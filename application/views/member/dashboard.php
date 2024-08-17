@@ -18,12 +18,12 @@
 				<div class="card card-stats card-primary card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="icon-big text-center">
 						<i class="fas fa-wallet"></i>
 						</div>
 					</div>
-					<div class="col-8 col-stats">
+					<div class="col-9 col-stats">
 						<div class="numbers">
 						<p class="card-category">Balance</p>
 						<h4 class="card-title"><?= format_currency($credit) ?></h4>
@@ -37,12 +37,12 @@
 				<div class="card card-stats card-info card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="icon-big text-center">
 						<i class="fas fa-money-check"></i>
 						</div>
 					</div>
-					<div class="col-8 col-stats">
+					<div class="col-9 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total Credit</p>
 						<h4 class="card-title"><?= format_currency($total_credit) ?></h4>
@@ -56,12 +56,12 @@
 				<div class="card card-stats card-success card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="icon-big text-center">
 						<i class="fas fa-layer-group"></i>
 						</div>
 					</div>
-					<div class="col-8 col-stats">
+					<div class="col-9 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total IMEI Order</p>
 						<h4 class="card-title"><?= $total_order ?></h4>
@@ -75,12 +75,12 @@
 				<div class="card card-stats card-secondary card-round">
 				<div class="card-body">
 					<div class="row">
-					<div class="col-4">
+					<div class="col-3">
 						<div class="icon-big text-center">
 						<i class="fas fa-server"></i>
 						</div>
 					</div>
-					<div class="col-8 col-stats">
+					<div class="col-9 col-stats">
 						<div class="numbers">
 						<p class="card-category">Total Server Order</p>
 						<h4 class="card-title"><?= $total_order ?></h4>

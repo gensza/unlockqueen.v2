@@ -28,25 +28,25 @@
     </div>
 </div>
 <div class="row">
-			<div class="col-sm-5 col-md-2">
-				<div class="card card-stats card-primary card-round">
-				<div class="card-body">
-					<div class="row">
-					<div class="col-4">
-						<div class="icon-big text-center">
-						<i class="fas fa-wallet"></i>
-						</div>
-					</div>
-					<div class="col-6 col-stats">
-						<div class="numbers">
-						<p class="card-category">Balance</p>
-						<h4 class="card-title"><?= number_format($credit, 2) ?></h4>
-						</div>
-					</div>
-					</div>
-				</div>
-				</div>
-			</div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-primary card-round">
+        <div class="card-body">
+            <div class="row">
+            <div class="col-3">
+                <div class="icon-big text-center">
+                <i class="fas fa-wallet"></i>
+                </div>
+            </div>
+            <div class="col-9 col-stats">
+                <div class="numbers">
+                <p class="card-category">Balance</p>
+                <h4 class="card-title"><?= format_currency($credit) ?></h4>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -73,7 +73,7 @@
                                     <?php foreach($network['methods'] as $method): ?>
                                     <option value="<?php echo $method['ID'] ?>"
                                         <?php echo set_select('MethodID', $method['ID']); ?>>
-                                        <?php echo $method['Title'].'- Only '.$method['Price'].' credit required'; ?>
+                                        <?php echo $method['Title'].'- Only '.format_currency($method['Price']).' credit required'; ?>
                                     </option>
                                     <?php endforeach; ?>
                                 </optgroup>

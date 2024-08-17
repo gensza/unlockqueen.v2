@@ -115,7 +115,7 @@ class dashboard extends FSD_Controller
                 $data["detail"]      =  "<button class='btn btn-info btn-xs' onclick='detailIMEI(\"".$d['ID']."\")'>View</button>";
                 $data["imei"]        = $d['IMEI'];
                 // $data["description"] = $d['Title'];
-                $data["price"]       = $d['Price'];
+                $data["price"]       = format_currency($d['Price']);
                 $data["service"]     = $d['Title'];
                 $data["note"]    	 = $d['Note'];
                 $data["comments"]    = $d['Comments'];
@@ -201,7 +201,7 @@ class dashboard extends FSD_Controller
             $data["email"]      = $d['Email'];
             $data["notes"]       = $d['Notes'];
             $data["code"]       = $d['Code'];
-			$data["price"]       = $d['Price'];
+			$data["price"]       = format_currency($d['Price']);
             $data["comments"]    = $d['Comments'];
             $data["status"]     = $status;
             $data["created_at"] = $d['CreatedDateTime'];
@@ -249,7 +249,7 @@ class dashboard extends FSD_Controller
 
                 $data["no"]          = $no;
                 $data["code"] 		 = $d['Code'];
-                $data["amount"]      = $d['Amount'];
+                $data["amount"]      = format_currency($d['Amount']);
                 $data["description"] = $d['Description'];
                 $data["created_at"]  = $d['CreatedDateTime'];
 

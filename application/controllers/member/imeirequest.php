@@ -17,7 +17,7 @@ class imeirequest extends FSD_Controller
 		$this->load->model("servicemodel_model");		
 		$this->load->model("mep_model");
 		$this->load->model("autoresponder_model");
-
+		$this->load->helper('formatcurrency_helper');
 	}
 	
 	########### IMEI Order Request Form display #######################################
@@ -88,7 +88,7 @@ class imeirequest extends FSD_Controller
 					$flattenedData[] = [
 						'title' => '<p style="padding:10px;margin:0px">'.$method['Title'].'</p>',
 						'DeliveryTime' => '<p style="padding:10px;margin:0px">'.$method['DeliveryTime'].'</p>',
-						'methodPrice' => '<p style="padding:10px;margin:0px">'.$method['Price'].'</p>'
+						'methodPrice' => '<p style="padding:10px;margin:0px">'.format_currency($method['Price']).'</p>'
 					];
 				}
 			}

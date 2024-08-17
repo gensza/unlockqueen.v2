@@ -13,6 +13,7 @@ class serverrequest extends FSD_Controller
 		$this->load->model('serverorder_model');
 		$this->load->model('credit_model');
 		$this->load->model('apimanager_model');
+		$this->load->helper('formatcurrency_helper');
 	}
 	
 	########### IMEI Order Request Form display #######################################
@@ -103,7 +104,7 @@ class serverrequest extends FSD_Controller
 					$flattenedData[] = [
 						'title' => '<p style="padding:10px;margin:0px">'.$method['Title'].'</p>',
 						'DeliveryTime' => '<p style="padding:10px;margin:0px">'.$method['DeliveryTime'].'</p>',
-						'methodPrice' => '<p style="padding:10px;margin:0px">'.$method['Price'].'</p>'
+						'methodPrice' => '<p style="padding:10px;margin:0px">'.format_currency($method['Price']).'</p>'
 					];
 				}
 			}
