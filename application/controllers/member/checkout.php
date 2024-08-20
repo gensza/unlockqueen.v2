@@ -12,6 +12,7 @@ class checkout extends FSD_Controller
 		$this->load->model('payment_model');
 		$this->load->model('credit_model');
 		$this->load->model('member_model');
+		$this->load->library('midtrans');
 	}
 	
 	public function index()
@@ -153,5 +154,25 @@ class checkout extends FSD_Controller
 		}
 		$this->session->set_flashdata("fail", $this->lang->line('error_transaction_declined'));
 		redirect('member/dashboard/addfund');
+	}
+
+	function getTokenMidtrans()
+	{
+		$midtrans_object = new Midtrans();
+		
+		$date = date('YmdHis');
+		$random = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6);
+		$order_id = CASH_PAYMENT_RECEIVED . $date . $random . '|' . $this->session->userdata('MemberID');
+
+		$datas['order_id'] = $order_id;
+		$datas['gross_amount'] = $_POST['gross_amount'];
+		$datas['member_first_name'] = $this->session->userdata('MemberFirstName');
+		$datas['member_last_name'] = $this->session->userdata('MemberLastName');
+		$datas['member_email'] = $this->session->userdata('MemberEmail');
+		$datas['member_phone'] = $this->session->userdata('MemberPhone');
+
+		$result = $midtrans_object->get_token($datas);
+
+		echo json_encode($result);
 	}
 }

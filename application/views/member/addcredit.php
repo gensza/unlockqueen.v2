@@ -119,6 +119,22 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Add Credit (new)</div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div>
+                        <label for="">Credit Amount (IDR)</label>
+                        <input type="number" class="form-control" id="selectCredit">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-sm mt-3" onclick="getTokenMidtrans()">Add Credit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <style>
@@ -138,6 +154,50 @@ $(document).ready(function() {
     openLoading = function() {
         loadingPannel.show();
     }
-
 });
+
+function getTokenMidtrans(){
+
+    if($('#selectCredit').val() == 0){
+        alert('Please select credit');
+        return false;
+    }
+
+    $.ajax({
+    method: "POST",
+    dataType: "JSON",
+    url: base_url + "member/checkout/getTokenMidtrans",
+    data: {
+        'gross_amount': $('#selectCredit').val(),
+    },
+    beforeSend: function () { },
+    success: function (token) {
+
+        window.snap.pay(token, {
+            onSuccess: function(result){
+                /* You may add your own implementation here */
+                alert("payment success!"); console.log(result);
+                location.reload();
+            },
+            onPending: function(result){
+                /* You may add your own implementation here */
+                alert("wating your payment!"); console.log(result);
+            },
+            onError: function(result){
+                /* You may add your own implementation here */
+                alert("payment failed!"); console.log(result);
+            },
+            onClose: function(){
+                /* You may add your own implementation here */
+                alert('you closed the popup without finishing the payment');
+            }
+        })
+        
+    },
+    })
+    .done(function (data) { })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Error!!! " + errorThrown);
+    });
+}
 </script>

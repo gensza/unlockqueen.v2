@@ -60,7 +60,24 @@ class credit extends FSD_Controller
 			$this->session->set_flashdata('success', 'Record added successfully.');
 			redirect("admin/credit/");
 		}
-	}			
+	}
+	
+	public function insert_amount_midtrans()
+	{
+
+		// $data = $this->input->post(NULL,TRUE);	
+		$transaction_id = 1 + $this->credit_model->get_max_transaction_id(array('TransactionCode' => CASH_PAYMENT_RECEIVED));
+		$data['TransactionID'] = $transaction_id;
+		$data['TransactionCode'] = CASH_PAYMENT_RECEIVED;
+		$data['CreatedDateTime'] = date("Y-m-d H:i:s");
+		$data['MemberID'] = 1;
+		$data['Description'] = "by midtrans";
+		$data['Amount'] = 10;
+		
+		$this->credit_model->insert($data);
+			// $this->session->set_flashdata('success', 'Record added successfully.');
+			// redirect("admin/credit/");
+	}	
 }
 
 /* End of file credit.php */
