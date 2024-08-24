@@ -171,6 +171,9 @@ class checkout extends FSD_Controller
 		$datas['member_email'] = $this->session->userdata('MemberEmail');
 		$datas['member_phone'] = $this->session->userdata('MemberPhone');
 
+		$datas['server_key'] = $this->config->item('midtransServerKey');
+		$datas['is_production'] = $this->config->item('midtransIsProduction');
+
 		$result = $midtrans_object->get_token($datas);
 
 		echo json_encode($result);

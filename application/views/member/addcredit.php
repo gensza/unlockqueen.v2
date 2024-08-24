@@ -29,6 +29,16 @@
                     <?php echo form_open('member/checkout', array('role' => 'form', 'method' => 'post','id' => 'imeireq' ,'name' => 'form2', 'class' => 'form-horizontal', 'onsubmit' => 'openLoading()')); ?>
                     <div class="form-group">
                         <label
+                            class="control-label"><?php echo $this->lang->line('credit_fields_payment_type'); ?></label>
+                        <div class="col-8">
+                            <select name="payment_type" id="payment_type" class="form-control" required onchange="changePaymentType()">
+                                <option value="midtrans">Midtrans</option>
+                                <option value="paypal">PayPal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group credit_paypal">
+                        <label
                             class="control-label"><?php echo $this->lang->line('credit_fields_no_of_credits'); ?></label>
                         <div class="col-8">
                             <input type="number" min="20" step="0.1" name="Credit"
@@ -36,23 +46,27 @@
                                 class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group credit_midtrans">
                         <label
-                            class="control-label"><?php echo $this->lang->line('credit_fields_payment_type'); ?></label>
+                            class="control-label">Credit Amount (IDR)</label>
                         <div class="col-8">
-                            <select name="payment_type" id="payment_type" class="form-control" required>
-                                <option value="paypal">PayPal</option>
-                            </select>
+                            <input type="number" class="form-control" id="inputCredit" placeholder="0">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group btn_paypal">
                         <div class="col-sm-offset-3 col-sm-9">
                             <button type="submit"
                                 class="btn btn-primary btn-sm"><?php echo $this->lang->line('credit_fields_add_credit'); ?></button>
                         </div>
                     </div>
+                    <div class="form-group btn_midtrans">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit"
+                                class="btn btn-info btn-sm" onclick="getTokenMidtrans()">Add Credits</button>
+                        </div>
+                    </div>
 
-                    <div class="form-group">
+                    <div class="form-group note_paypal">
                         <div class="col-sm-offset-3 col-sm-9">
                             <span style="color:red;"> Note:- <?php echo $paypal_settings[0]['percent'].'%' ?> will be
                                 charged.br </span><br>
@@ -119,22 +133,6 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">Add Credit (new)</div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div>
-                        <label for="">Credit Amount (IDR)</label>
-                        <input type="number" class="form-control" id="selectCredit">
-                    </div>
-                    <div>
-                        <button class="btn btn-primary btn-sm mt-3" onclick="getTokenMidtrans()">Add Credit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <style>
@@ -154,12 +152,36 @@ $(document).ready(function() {
     openLoading = function() {
         loadingPannel.show();
     }
+
+    $('.credit_paypal').addClass('d-none', true);
+    $('.btn_paypal').addClass('d-none', true);
+    $('.note_paypal').addClass('d-none', true);
 });
+
+function changePaymentType () {
+
+    if($('#payment_type').val() == 'midtrans'){
+        $('.credit_paypal').addClass('d-none', true);
+        $('.btn_paypal').addClass('d-none', true);
+        $('.note_paypal').addClass('d-none', true);
+
+        $('.credit_midtrans').removeClass('d-none', true);
+        $('.btn_midtrans').removeClass('d-none', true);
+    }else{
+        $('.credit_paypal').removeClass('d-none', true);
+        $('.btn_paypal').removeClass('d-none', true);
+        $('.note_paypal').removeClass('d-none', true);
+
+        $('.credit_midtrans').addClass('d-none', true);
+        $('.btn_midtrans').addClass('d-none', true);
+
+    }
+}
 
 function getTokenMidtrans(){
 
-    if($('#selectCredit').val() == 0){
-        alert('Please select credit');
+    if($('#inputCredit').val() == 0){
+        swal('Warning!', 'Please select credit', 'warning');
         return false;
     }
 
@@ -168,7 +190,7 @@ function getTokenMidtrans(){
     dataType: "JSON",
     url: base_url + "member/checkout/getTokenMidtrans",
     data: {
-        'gross_amount': $('#selectCredit').val(),
+        'gross_amount': $('#inputCredit').val(),
     },
     beforeSend: function () { },
     success: function (token) {
@@ -176,20 +198,24 @@ function getTokenMidtrans(){
         window.snap.pay(token, {
             onSuccess: function(result){
                 /* You may add your own implementation here */
-                alert("payment success!"); console.log(result);
+                // alert("payment success!"); console.log(result);
+                swal('Success!', 'payment success!', 'success');
                 location.reload();
             },
             onPending: function(result){
                 /* You may add your own implementation here */
-                alert("wating your payment!"); console.log(result);
+                // alert("wating your payment!"); console.log(result);
+                swal('Warning!', 'wating your payment!', 'warning');
             },
             onError: function(result){
                 /* You may add your own implementation here */
-                alert("payment failed!"); console.log(result);
+                // alert("payment failed!"); console.log(result);
+                swal('Error!', 'payment failed!', 'error');
             },
             onClose: function(){
                 /* You may add your own implementation here */
-                alert('you closed the popup without finishing the payment');
+                // alert('you closed the popup without finishing the payment');
+                swal('Warning!', 'you closed the popup without finishing the payment', 'warning');
             }
         })
         
