@@ -1,5 +1,21 @@
+$(document).ready(function () {
+    $.notify({
+        // icon: 'icon-bell',
+        title: 'Hello!',
+        message: 'Welcome to INDOBYPASS Dashboard',
+    }, {
+        type: 'secondary',
+        placement: {
+            from: "bottom",
+            align: "right"
+        },
+        time: 1000,
+    });
+})
+
 // Function to initialize a doughnut chart
 function initializeDoughnutChart(chartElement, chartData, chartOptions) {
+
     var ctx = chartElement.getContext('2d');
 
     // Register plugin for displaying data percentages inside the chart segments
@@ -14,7 +30,7 @@ function initializeDoughnutChart(chartElement, chartData, chartOptions) {
             ctx.font = fontSize + "em sans-serif";
             ctx.textBaseline = "middle";
 
-            var text = "75%", // Default text to display if no data provided
+            var text = "0%", // Default text to display if no data provided
                 dataSum = 0;
 
             // Calculate the sum of data values
@@ -125,3 +141,14 @@ var options3 = {
 };
 
 initializeDoughnutChart(doughnutChartPending, data3, options3);
+
+
+var myLegendContainer = document.getElementById("myChartLegendDashboard");
+// generate HTML legend
+myLegendContainer.innerHTML = statisticsChart.generateLegend();
+
+// bind onClick event to all LI-tags of the legend
+var legendItems = myLegendContainer.getElementsByTagName('li');
+for (var i = 0; i < legendItems.length; i += 1) {
+    legendItems[i].addEventListener("click", legendClickCallback, false);
+}

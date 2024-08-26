@@ -173,7 +173,7 @@
 				<div class="card">
 					<div class="card-header">
 						<div class="card-head-row">
-							<div class="card-title">Total Order Statistics 2024</div>
+							<div class="card-title">Total Order Statistics <?= date('Y') ?></div>
 							<div class="card-tools">
 								<a href="#" class="btn btn-label-success btn-round btn-sm me-2">
 									<span class="btn-label">
@@ -192,9 +192,9 @@
 					</div>
 					<div class="card-body">
 						<div class="chart-container" style="min-height: 375px">
-							<canvas id="statisticsChart"></canvas>
+							<canvas id="statisticsChartDashboard"></canvas>
 						</div>
-						<div id="myChartLegend"></div>
+						<div id="myChartLegendDashboard"></div>
 					</div>
 				</div>
 			</div>				
@@ -327,10 +327,10 @@
 		</div>
 		
 		<script src="<?= base_url() ?>/assets/assets_members/js/plugin/chart.js/chart.min.js"></script>
-		<script src="<?= base_url() ?>/assets/assets_members/js/jquery-3.6.0.js"></script>
 		<script src="<?= base_url() ?>/assets/assets_members/js/bootstrap-notify.min.js"></script>
-		<script src="<?= base_url() ?>/assets/assets_members/js/circles.js"></script>
-		<script src="<?= base_url() ?>/assets/assets_members/js/demo.js"></script>
+		<!-- <script src="<?= base_url() ?>/assets/assets_members/js/jquery-3.6.0.js"></script> -->
+		<!-- <script src="<?= base_url() ?>/assets/assets_members/js/circles.js"></script> -->
+		<!-- <script src="<?= base_url() ?>/assets/assets_members/js/demo.js"></script> -->
 	</body>
 </html>
 
@@ -338,9 +338,123 @@
     var appraovedPercentage = <?= $appraovedPercentage ?>;
     var rejectPercentage = <?= $rejectPercentage ?>;
     var pendingPercentage = <?= $pendingPercentage ?>;
+    var pendingStatistic = <?= $pendingStatistic ?>;
+    var rejectStatistic = <?= $rejectStatistic ?>;
+    var successStatistic = <?= $successStatistic ?>;
     var base_url = "<?= base_url() ?>";
+
+	//Chart
+	const pending_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	pendingStatistic.forEach(element => {
+		const month = element.month_year.split('-')[1];
+		pending_count[parseInt(month) - 1] = parseInt(element.count);
+	});
+
+	const reject_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	rejectStatistic.forEach(element => {
+		const month = element.month_year.split('-')[1];
+		reject_count[parseInt(month) - 1] = parseInt(element.count);
+	});
+
+	const success_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	successStatistic.forEach(element => {
+		const month = element.month_year.split('-')[1];
+		success_count[parseInt(month) - 1] = parseInt(element.count);
+	});
+
+	var ctxStatistics = document.getElementById('statisticsChartDashboard').getContext('2d');
+
+	// Create the chart
+	var statisticsChart = new Chart(ctxStatistics, {
+		type: 'line',
+		data: {
+			labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+			datasets: [{
+				label: "Reject",
+				borderColor: '#f3545d',
+				pointBackgroundColor: 'rgba(243, 84, 93, 0.6)',
+				pointRadius: 0,
+				backgroundColor: 'rgba(243, 84, 93, 0.4)',
+				legendColor: '#f3545d',
+				fill: true,
+				borderWidth: 2,
+				data: reject_count
+			}, {
+				label: "Pending",
+				borderColor: '#fdaf4b',
+				pointBackgroundColor: 'rgba(253, 175, 75, 0.6)',
+				pointRadius: 0,
+				backgroundColor: 'rgba(253, 175, 75, 0.4)',
+				legendColor: '#fdaf4b',
+				fill: true,
+				borderWidth: 2,
+				data: pending_count
+			}, {
+				label: "Success",
+				borderColor: '#177dff',
+				pointBackgroundColor: 'rgba(23, 125, 255, 0.6)',
+				pointRadius: 0,
+				backgroundColor: 'rgba(23, 125, 255, 0.4)',
+				legendColor: '#177dff',
+				fill: true,
+				borderWidth: 2,
+				data: success_count
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			legend: {
+				display: false
+			},
+			tooltips: {
+				bodySpacing: 4,
+				mode: "nearest",
+				intersect: 0,
+				position: "nearest",
+				xPadding: 10,
+				yPadding: 10,
+				caretPadding: 10
+			},
+			layout: {
+				padding: { left: 5, right: 5, top: 15, bottom: 15 }
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						fontStyle: "500",
+						beginAtZero: false,
+						maxTicksLimit: 5,
+						padding: 10
+					},
+					gridLines: {
+						drawTicks: false,
+						display: false
+					}
+				}],
+				xAxes: [{
+					gridLines: {
+						zeroLineColor: "transparent"
+					},
+					ticks: {
+						padding: 10,
+						fontStyle: "500"
+					}
+				}]
+			},
+			legendCallback: function (chart) {
+				var text = [];
+				text.push('<ul class="' + chart.id + '-legend html-legend">');
+				for (var i = 0; i < chart.data.datasets.length; i++) {
+					text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>');
+					if (chart.data.datasets[i].label) {
+						text.push(chart.data.datasets[i].label);
+					}
+					text.push('</li>');
+				}
+				text.push('</ul>');
+				return text.join('');
+			}
+		}
+	});
 </script>
-
-
-
-

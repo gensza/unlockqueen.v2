@@ -99,6 +99,27 @@ class imeiorder_model extends CI_Model
 		return $result->result_array();
 	}
     
+	public function get_dataStatistic($id, $param)
+	{
+		$sql = "SELECT Status, month_year, COUNT(*) AS count
+			FROM (
+				SELECT Status, DATE_FORMAT(CreatedDateTime, '%Y-%m') AS month_year
+				FROM gsm_imei_orders 
+				WHERE MemberID = $id AND Status = '$param'
+			) AS imei_orders
+			GROUP BY Status, month_year
+		UNION ALL
+		SELECT Status, month_year, COUNT(*) AS count
+		FROM (
+			SELECT Status, DATE_FORMAT(CreatedDateTime, '%Y-%m') AS month_year
+			FROM gsm_fileservices_orders 
+			WHERE MemberID = $id AND Status = '$param'
+		) AS fileservices_orders
+		GROUP BY Status, month_year";
+		$result = $this->db->query($sql);
+		return $result->result_array();
+	}
+
     public function count_all() 
     {
         $query = $this->db->count_all($this->tbl_name);

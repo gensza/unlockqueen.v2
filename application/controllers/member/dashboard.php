@@ -31,6 +31,9 @@ class dashboard extends FSD_Controller
 		$data['pendingPercentage'] = ( (count($pendingpercent) * 100 ) / $data['totalPercentage'] );
 		$data['rejectPercentage'] = ( (count($rejectpercent) * 100 ) / $data['totalPercentage'] );
 		$data['appraovedPercentage'] = ( (count($approvedpercent) * 100 ) / $data['totalPercentage'] );		
+		$data['pendingStatistic'] = json_encode($this->imeiorder_model->get_dataStatistic($id, 'Pending'));		
+		$data['rejectStatistic'] = json_encode($this->imeiorder_model->get_dataStatistic($id, 'Canceled'));		
+		$data['successStatistic'] = json_encode($this->imeiorder_model->get_dataStatistic($id, 'Issued'));		
 		$data['Title'] = "Dashboard";
 		$data['template'] = "member/dashboard";
 		$data['credit'] = $this->credit_model->get_credit($id);
