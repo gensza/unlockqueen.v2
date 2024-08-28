@@ -154,6 +154,56 @@ class Setting extends FSD_Controller
 		$this->session->set_flashdata('error', 'Invalid method.');
         redirect("admin/setting/");	
 	}
+
+    public function post_activity()
+    {
+		if($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+
+			$data = $this->input->post(NULL, TRUE);			
+
+            if ($_FILES["Image"] || isset($_FILES["Image"])) {
+                // Get the file information
+                $file_name = $_FILES["Image"]["name"];
+                $file_type = $_FILES["Image"]["type"];
+                $file_size = $_FILES["Image"]["size"];
+                $file_tmp = $_FILES["Image"]["tmp_name"];
+            
+                // Check if the file is an image
+                if ($file_type == "image/jpeg" || $file_type == "image/png") {
+                  // Upload the file to the server
+                  $upload_dir = "assets/img/profile/activity/";
+                  $upload_file = $upload_dir . $file_name;
+                  move_uploaded_file($file_tmp, $upload_file);
+            
+                  // insert the database with the image name
+                
+                  $ins["ImageName"] = $file_name;
+                  $ins["userCreated"] = $data['userCreated'];
+                  $ins["CreatedDate"] = date("Y-m-d");
+                  $ins["Category"] = $data['Category'];
+                  $ins["Title"] = $data['Title'];
+                  $ins["Text"] = $data['Text'];
+                  $this->db->insert('dashboard_activity', $ins);
+
+                  // Display a success message
+                  //   echo "Image uploaded successfully!";
+
+                  $this->session->set_flashdata('success', 'Record has been updated successfully.');
+                  redirect("admin/setting/");
+
+                } else {
+                  $this->session->set_flashdata('error', 'Only JPEG and PNG images are allowed..');
+                  redirect("admin/setting/");
+                }
+            } else {
+                $this->session->set_flashdata('error', 'No file was uploaded.');
+                redirect("admin/setting/");
+            }
+        }
+		$this->session->set_flashdata('error', 'Invalid method.');
+        redirect("admin/setting/");	
+    }
 }
 
 /* End of file welcome.php */

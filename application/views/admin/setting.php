@@ -24,6 +24,9 @@
                 <li>
                     <a href="#tab_6" data-toggle="tab">Currencies</a>
                 </li>
+                <li>
+                    <a href="#tab_7" data-toggle="tab">Activity</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_0">
@@ -284,7 +287,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Rate USD to Rupiah  :</label>
                                         <div class="col-md-4">
-                                            <textarea class="form-control" rows="5" cols="10" name="push_headline"><?php echo set_value('push_headline', $data['push_headline']) ?></textarea>
+                                            <input class="form-control" name="idr" value="<?php echo set_value('idr', $data['idr']) ?>"></input>
                                         </div>
                                     </div>
                                 </div>
@@ -292,6 +295,61 @@
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button type="submit" class="btn btn-info">Update</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php echo form_close(); ?>  
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_7">
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-reorder"></i>Activity
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <?php echo form_open("admin/setting/post_activity", array('class' => "form-horizontal", 'role' => "form", 'method' => 'post', 'enctype' => 'multipart/form-data')); ?>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Post Image</label>
+                                        <div class="col-md-4">
+                                            <input type="file" class="form-control" name="Image" value="" required></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">User Created</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="userCreated" value="" required></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Category</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="Category" value="" required></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Title</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="Title" value="" required></input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Text</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="Text" value="" required></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button type="submit" class="btn btn-info">Insert</button>
                                             <button type="button" class="btn btn-default">Cancel</button>
                                         </div>
                                     </div>

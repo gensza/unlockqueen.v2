@@ -297,7 +297,7 @@
 			</div>
 			<div class="col-md-5">
 				<div class="card card-post card-round">
-				<img class="card-img-top" src="<?= base_url() ?>assets/img/opensubmit.png"  alt="Card image cap" />
+				<img class="card-img-top" src="<?= base_url() ?>assets/img/profile/activity/<?= $activity['ImageName'] ? $activity['ImageName'] : 'opensubmit.png' ?>"  alt="Card image cap" />
 				<div class="card-body">
 					<div class="d-flex">
 					<div class="avatar">
@@ -308,17 +308,17 @@
 						/>
 					</div>
 					<div class="info-post ms-2">
-						<p class="username">Founder INDOBYPASS</p>
-						<p class="date text-muted">20 Jul 24</p>
+						<p class="username"><?= $activity['UserCreated'] ?></p>
+						<p class="date text-muted"><?= $activity['CreatedDate'] ?></p>
 					</div>
 					</div>
 					<div class="separator-solid"></div>
-					<p class="card-category text-info mb-1"><a href="#">BYPASS XR-15 PM</a></p>
+					<p class="card-category text-info mb-1"><a href="#"> <?= $activity['Category'] ?></a></p>
 					<h3 class="card-title">
-					<a href="#"> Launching New Tools!</a>
+					<a href="#"> <?= $activity['Title'] ?></a>
 					</h3>
 					<p class="card-text">
-					We are launching new tools to help you to unlock your device. Stay tuned! 
+					<?= $activity['Text'] ?>
 					</p>
 					<!-- <a href="#" class="btn btn-primary btn-rounded btn-sm">Read More</a> -->
 				</div>

@@ -120,6 +120,13 @@ class imeiorder_model extends CI_Model
 		return $result->result_array();
 	}
 
+	public function get_activity()
+	{
+		$sql = "SELECT * FROM dashboard_activity ORDER BY ID DESC LIMIT 1";
+		$result = $this->db->query($sql);
+		return $result->row_array();
+	}
+
     public function count_all() 
     {
         $query = $this->db->count_all($this->tbl_name);

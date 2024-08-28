@@ -25,6 +25,11 @@ $config['package_thumb_url']			= 	$config['base_url'].'uploads/cms/package/thumb
 $config['captcha_url']					= 	$config['base_url'].'uploads/captcha/';
 $config['testimonial_thumb_url']		= 	$config['base_url'].'uploads/testimonials/';
 
+// Midtrans
+$config['midtransServerKey']			=	'';
+$config['midtransClientKey']			=	'';
+$config['midtransIsProduction']			=	false;
+
 //CK Editor
 $config['ckeditor_path']				=	'assets/js/plugins/ckeditor';
 
