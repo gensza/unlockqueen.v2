@@ -35,6 +35,7 @@ class dashboard extends FSD_Controller
 		$data['rejectStatistic'] = json_encode($this->imeiorder_model->get_dataStatistic($id, 'Canceled'));		
 		$data['successStatistic'] = json_encode($this->imeiorder_model->get_dataStatistic($id, 'Issued'));		
 		$data['activity'] = $this->imeiorder_model->get_activity();		
+		$data['recentActivity'] = $this->imeiorder_model->get_recent_activity();	
 		$data['Title'] = "Dashboard";
 		$data['template'] = "member/dashboard";
 		$data['credit'] = $this->credit_model->get_credit($id);

@@ -222,30 +222,19 @@
 					</div>
 					<div class="card-body">
 						<ol class="activity-feed">
-							<li class="feed-item feed-item-secondary">
-								<time class="date" datetime="9-25">Sep 25</time>
-								<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-							</li>
-							<li class="feed-item feed-item-success">
-								<time class="date" datetime="9-24">Sep 24</time>
-								<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-							</li>
-							<li class="feed-item feed-item-info">
-								<time class="date" datetime="9-23">Sep 23</time>
-								<span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-							</li>
-							<li class="feed-item feed-item-warning">
-								<time class="date" datetime="9-21">Sep 21</time>
-								<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-							</li>
-							<li class="feed-item feed-item-danger">
-								<time class="date" datetime="9-18">Sep 18</time>
-								<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-							</li>
-							<li class="feed-item">
-								<time class="date" datetime="9-17">Sep 17</time>
-								<span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-							</li>
+							<?php 
+								$feed_color = array('secondary', 'success', 'info', 'warning', 'danger', 'primary');
+							?>
+							<?php foreach ($recentActivity as $recentActivity) { ?>
+								<?php
+									$date = new DateTime($recentActivity['CreatedDate']);
+									$formatted_date = strtoupper($date->format("M d"));
+								?>
+								<li class="feed-item feed-item-<?= $feed_color[array_rand($feed_color)] ?>">
+									<time class="date" datetime="9-25"><?= $formatted_date ?></time>
+									<span class="text"><?= $recentActivity['Title'] ?></span>
+								</li>
+							<?php } ?>
 						</ol>
 					</div>
 				</div>
@@ -309,7 +298,14 @@
 					</div>
 					<div class="info-post ms-2">
 						<p class="username"><?= $activity['UserCreated'] ?></p>
-						<p class="date text-muted"><?= $activity['CreatedDate'] ?></p>
+						<p class="date text-muted">
+							<?php
+								$date = new DateTime($activity['CreatedDate']);
+								$formatted_date = $date->format("d M y");
+								$formatted_date = strtoupper(substr_replace($formatted_date, ' ', 3, 0));
+
+								echo $formatted_date
+							?>
 					</div>
 					</div>
 					<div class="separator-solid"></div>
