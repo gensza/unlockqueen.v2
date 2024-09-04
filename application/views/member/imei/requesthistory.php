@@ -131,7 +131,7 @@
                                     </tr>
                                     <tr>
                                         <th>REPLY TIME </th>
-                                        <td id="createdAtModal"></td>
+                                        <td id="replyAtModal"></td>
                                     </tr>
                                     <tr>
                                         <th>REPLY </th>
@@ -222,6 +222,7 @@ $(document).ready(function() {
             $('#codeModal').html(row.data().code || 'N/A');  // Use .html() here
             $('#noteModal').text(row.data().note || 'N/A');
             $('#createdAtModal').text(row.data().created_at || 'N/A');
+            $('#replyAtModal').text(row.data().updated_date_time || 'N/A');
 
             // Show the modal
             $('#detailImeiOrderModal').modal('show');
@@ -246,6 +247,7 @@ $(document).ready(function() {
             $('#codeModal').html(row.data().code || 'N/A');  // Use .html() here
             $('#noteModal').text(row.data().note || 'N/A');
             $('#createdAtModal').text(row.data().created_at || 'N/A');
+            $('#replyAtModal').text(row.data().updated_date_time || 'N/A');
 
             // Show the modal
             $('#detailImeiOrderModal').modal('show');

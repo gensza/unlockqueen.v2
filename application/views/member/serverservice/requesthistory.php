@@ -136,7 +136,7 @@
                                     </tr>
                                     <tr>
                                         <th>REPLY TIME</th>
-                                        <td id="createdAtModal"></td>
+                                        <td id="replyAtModal"></td>
                                     </tr>
                                     <tr>
                                         <th>REPLY</th>
@@ -223,6 +223,7 @@
                 $('#priceModal').text(row.data().price || 'N/A');
                 $('#statusModal').html(formatBadge(row.data().status));
                 $('#createdAtModal').text(row.data().created_at || 'N/A');
+                $('#replyAtModal').text(row.data().updated_date_time || 'N/A');
                 $('#codeModal').html(row.data().code || 'N/A');
                 $('#notesModal').text(row.data().notes || 'N/A');
 
@@ -264,6 +265,7 @@
                 $('#priceModal').text(row.data().price || 'N/A');
                 $('#statusModal').html(formatBadge(row.data().status));
                 $('#createdAtModal').text(row.data().created_at || 'N/A');
+                $('#replyAtModal').text(row.data().updated_date_time || 'N/A');
                 $('#codeModal').html(row.data().code || 'N/A');
                 $('#notesModal').text(row.data().notes || 'N/A');
 

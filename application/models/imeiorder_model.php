@@ -213,7 +213,7 @@ class imeiorder_model extends CI_Model
 
 	public function get_imei_data_new($id, $start, $length, $cari_data)
 	{
-		$this->db->select("$this->tbl_name.ID, $this->tbl_name.IMEI, $this->tbl_method.Title, $this->tbl_method.Price, $this->tbl_name.Code, $this->tbl_name.Note, $this->tbl_name.Status,  $this->tbl_name.CreatedDateTime", TRUE)
+		$this->db->select("$this->tbl_name.ID, $this->tbl_name.IMEI, $this->tbl_method.Title, $this->tbl_method.Price, $this->tbl_name.Code, $this->tbl_name.Note, $this->tbl_name.Status,  $this->tbl_name.CreatedDateTime, $this->tbl_name.UpdatedDateTime", TRUE)
 				->from($this->tbl_name)
 				->join($this->tbl_method, "$this->tbl_name.MethodID=$this->tbl_method.ID", "inner")
 				->where("$this->tbl_name.MemberID",$id)

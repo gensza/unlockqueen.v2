@@ -85,8 +85,9 @@ class imeirequest extends FSD_Controller
 				];
 
 				foreach ($network['methods'] as $method) {
+					$slug = url_title($method['Title']);
 					$flattenedData[] = [
-						'title' => '<p style="padding:10px;margin:0px">'.$method['Title'].'</p>',
+						'title' => '<p style="padding:10px;margin:0px;cursor:pointer" onclick="detail_service(\''.$slug.'\',\''.$method['ID'].'\')">'.$method['Title'].'</p>',
 						'DeliveryTime' => '<p style="padding:10px;margin:0px">'.$method['DeliveryTime'].'</p>',
 						'methodPrice' => '<p style="padding:10px;margin:0px">'.format_currency($method['Price']).'</p>'
 					];
@@ -556,5 +557,27 @@ class imeirequest extends FSD_Controller
 		$sum = array_sum($log) * 9;
 		// Compare the last digit with $imei_last
 		return substr($sum, -1) == $imei_last;
+	}
+
+	public function detail()
+	{
+		$id_gsm_method = $this->uri->segment(5);
+		$data = array();
+		$data['Title'] = "Imei Request Detail";
+		$data['data'] = $this->method_model->get_where(array('ID'=> $id_gsm_method));			
+		$data['template'] = "member/imei/request";
+
+		$settings = $this->setting_model->get_all();
+		foreach ($settings as $s)
+			$data['notif'][$s['Key']] = $s['Value'];
+
+		foreach ($settings as $s)
+			$data['notif_updated'][$s['Key']] = $s['UpdatedDateTime'];
+
+		$data['content'] = "member/imei/requestdetail";
+		$data['content_js'] = "imei_request/imeiRequest.js";
+
+
+		$this->load->view('mastertemplate', $data);
 	}
 }

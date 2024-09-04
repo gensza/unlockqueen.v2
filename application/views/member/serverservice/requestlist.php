@@ -7,6 +7,22 @@
         padding-bottom: 0;
         border-left: 0;
     }
+
+    p {
+        font-size: 10px;
+    }
+
+    .table thead th {
+        font-size: 10px;
+    }
+
+    .card-header .card-title {
+        font-size: 12px;
+    }
+
+    .card .card-body, .card-light .card-body {
+        padding-top: 0px;
+    }
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -25,7 +41,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 </style>
 <div class="page-header">
     <div class="d-flex justify-content-between">
-        <h3 class="fw-bold">Server Services</h3>
+        <h5 class="fw-bold">Server Services</h5>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="#">
@@ -122,4 +138,9 @@ $(document).ready(function() {
         }
     });
 });
+
+function detail_service(slug,id) {
+
+    window.location.href = "<?= base_url() ?>member/serverrequest/detail/" + slug + "/" + id
+}
 </script>

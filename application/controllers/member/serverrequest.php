@@ -101,8 +101,9 @@ class serverrequest extends FSD_Controller
 				];
 
 				foreach ($network['services'] as $method) {
+					$slug = url_title($method['Title']);
 					$flattenedData[] = [
-						'title' => '<p style="padding:10px;margin:0px">'.$method['Title'].'</p>',
+						'title' => '<p style="padding:10px;margin:0px;cursor:pointer" onclick="detail_service(\''.$slug.'\',\''.$method['ID'].'\')">'.$method['Title'].'</p>',
 						'DeliveryTime' => '<p style="padding:10px;margin:0px">'.$method['DeliveryTime'].'</p>',
 						'methodPrice' => '<p style="padding:10px;margin:0px">'.format_currency($method['Price']).'</p>'
 					];
@@ -266,5 +267,27 @@ class serverrequest extends FSD_Controller
 			}
 			echo json_encode($data);
 		}
+	}
+
+	public function detail()
+	{
+		$id_gsm_server_services= $this->uri->segment(5);
+		$data = array();
+		$id = $this->session->userdata('MemberID');
+		$data['Title'] = "Server Request Detail";
+		$data['data'] = $this->serverservice_model->get_where(array('ID' => $id_gsm_server_services));
+		$data['template'] = "member/serverservice/request";
+
+		$settings = $this->setting_model->get_all();
+		foreach ($settings as $s)
+			$data['notif'][$s['Key']] = $s['Value'];
+
+		foreach ($settings as $s)
+			$data['notif_updated'][$s['Key']] = $s['UpdatedDateTime'];
+
+		$data['content'] = "member/serverservice/requestdetail";
+		$data['content_js'] = "server_service/serverService.js";
+
+		$this->load->view('mastertemplate', $data);
 	}
 }

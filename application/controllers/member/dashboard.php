@@ -127,6 +127,7 @@ class dashboard extends FSD_Controller
                 $data["code"] 	 	 = $d['Code'];
                 $data["status"]      = $status;
                 $data["created_at"]  = $d['CreatedDateTime'];
+                $data["updated_date_time"]  = $d['UpdatedDateTime'];
                 array_push($array_data, $data);
                 $no++;
             }
@@ -210,6 +211,7 @@ class dashboard extends FSD_Controller
             $data["comments"]    = $d['Comments'];
             $data["status"]     = $status;
             $data["created_at"] = $d['CreatedDateTime'];
+            $data["updated_date_time"] = $d['UpdatedDateTime'];
 			$data["detail"]     = $d['Detail'];
 
             array_push($array_data, $data);
