@@ -76,5 +76,24 @@ $(document).ready(function() {
             { "data": "delete" }
 		]
     } );
+
 } );		
+
+function editStatus(id){
+	console.log(id);
+
+	$.ajax({
+		type: "post",
+		url: "<?php echo site_url('admin/method/editStatus'); ?>",
+		data: {
+			"ID": id
+		},
+		cache: false,
+		success: function(data) {
+			alert("Status has been changed");
+
+			window.location.reload();
+		}
+	});
+}
 </script>      

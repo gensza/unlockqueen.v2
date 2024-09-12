@@ -22,6 +22,25 @@ class Method extends FSD_Controller
 		$data['template'] = "admin/method/list";
 		$this->load->view('admin/master_template',$data);
 	}
+
+	public function editStatus()
+	{
+		$data = $this->input->post(NULL,TRUE);
+		$id = $data['ID'];
+		
+		// select status current
+		$status = $this->method_model->get_where(array('ID'=> $id));
+		if($status[0]['Status'] == 'Enabled')
+		{
+			$status = 'Disabled';
+		}else{
+			$status = 'Enabled';
+		}
+
+		$data['Status'] = $status;
+		$this->method_model->update($data, $id);			
+		echo json_encode(true);
+	}
 	
 	public function listener()
 	{

@@ -75,6 +75,9 @@
                         <ul>
                             <li class="mt-2">Delivery Time : <b><?= $data[0]['DeliveryTime'] ?></b> </li>
                         </ul>
+                        <ul>
+                            <li class="mt-2">Required Fields : <b><?= $data[0]['RequiredFields'] ?></b> </li>
+                        </ul>
                     </div>
                 </div>
             </div>

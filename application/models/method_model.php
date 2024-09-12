@@ -236,6 +236,7 @@ class method_model extends CI_Model
 		$oprations = '';
 		if($access['edit'] == 'Y')
 		{
+			$oprations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-rotate-right" aria-hidden="true"></i></a>';
 			$oprations .= '<a href="'.site_url("admin/method/edit/$1").'" title="Edit this record" class="tip"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 			$oprations .= '<a href="'.site_url("admin/method/sync/$1").'" title="Sync this method required parameters" class="tip"><i class="fa fa-refresh" aria-hidden="true"></i></a>';
 		}

@@ -69,6 +69,7 @@ class serverservice_model extends CI_Model
 		$this->load->library('datatables');
 		$oprations = '';
 		if($access['edit'] == 'Y')
+            $oprations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-rotate-right" aria-hidden="true"></i></a>';
 			$oprations .= '<a href="'.site_url("admin/serverservice/edit/$1").'" title="Edit this record" class="tip"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 		if($access['delete'] == 'Y')
 			$oprations .= '<a href="'.site_url("admin/serverservice/delete/$1").'" title="Delete this record" class="tip" onclick="return confirm(\'Are sure want to delete this record?\');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
