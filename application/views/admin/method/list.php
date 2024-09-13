@@ -90,8 +90,6 @@ function editStatus(id){
 		},
 		cache: false,
 		success: function(data) {
-			alert("Status has been changed");
-
 			window.location.reload();
 		}
 	});

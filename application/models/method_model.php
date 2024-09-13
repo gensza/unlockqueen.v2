@@ -236,7 +236,7 @@ class method_model extends CI_Model
 		$oprations = '';
 		if($access['edit'] == 'Y')
 		{
-			$oprations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-rotate-right" aria-hidden="true"></i></a>';
+			$oprations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-toggle-$2" aria-hidden="true"></i></a>';
 			$oprations .= '<a href="'.site_url("admin/method/edit/$1").'" title="Edit this record" class="tip"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 			$oprations .= '<a href="'.site_url("admin/method/sync/$1").'" title="Sync this method required parameters" class="tip"><i class="fa fa-refresh" aria-hidden="true"></i></a>';
 		}
@@ -244,9 +244,9 @@ class method_model extends CI_Model
 			$oprations .= '<a href="'.site_url("admin/method/delete/$1").'" title="Delete this record" class="tip" onclick="return confirm(\'Are sure want to delete this record?\');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
 		
 		$this->datatables
-				->select("ID, Title, Status, Price, CreatedDateTime", TRUE)
+				->select("ID, Title, Status, Price, (CASE WHEN Status = 'Enabled' THEN 'on' ELSE 'off' END) AS ToggleStatus, CreatedDateTime", TRUE)
 				->from($this->tbl_name)
-				->add_column('delete', $oprations, 'ID');		
+				->add_column('delete', $oprations, 'ID, ToggleStatus');		
 		return $this->datatables->generate();
 	}	
 }

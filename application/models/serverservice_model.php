@@ -66,18 +66,22 @@ class serverservice_model extends CI_Model
 	
 	function get_datatable($access)
 	{
-		$this->load->library('datatables');
-		$oprations = '';
-		if($access['edit'] == 'Y')
-            $oprations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-rotate-right" aria-hidden="true"></i></a>';
-			$oprations .= '<a href="'.site_url("admin/serverservice/edit/$1").'" title="Edit this record" class="tip"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-		if($access['delete'] == 'Y')
-			$oprations .= '<a href="'.site_url("admin/serverservice/delete/$1").'" title="Delete this record" class="tip" onclick="return confirm(\'Are sure want to delete this record?\');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
-		
-		$this->datatables
-				->select("ID, Title, Price, Status,CreatedDateTime", TRUE)
-				->from($this->tbl_name)
-				->add_column('delete', $oprations, 'ID');		
-		return $this->datatables->generate();
+        $this->load->library('datatables');
+
+        $operations = '';
+        if($access['edit'] == 'Y') {
+            $operations .= '<a type="submit" onclick="editStatus($1)" title="Edit this status" href="javascript:void(0);" class="tip"><i class="fa fa-toggle-$2" aria-hidden="true"></i></a>';
+            $operations .= '<a href="'.site_url("admin/serverservice/edit/$1").'" title="Edit this record" class="tip"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+        }
+        if($access['delete'] == 'Y') {
+            $operations .= '<a href="'.site_url("admin/serverservice/delete/$1").'" title="Delete this record" class="tip" onclick="return confirm(\'Are you sure you want to delete this record?\');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+        }
+        
+        $this->datatables
+            ->select("ID, Title, Price, Status, (CASE WHEN Status = 'Enabled' THEN 'on' ELSE 'off' END) AS ToggleStatus,CreatedDateTime")
+            ->from($this->tbl_name)
+            ->edit_column('delete', $operations, 'ID ,ToggleStatus');
+        
+        return $this->datatables->generate();
 	}
 }
