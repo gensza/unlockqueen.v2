@@ -7,6 +7,11 @@
         padding-bottom: 0;
         border-left: 0;
     }
+
+    #autoExpandTextarea {
+            border: none;
+            resize: none;
+    }
 }
 </style>
 <div class="page-header">
@@ -204,12 +209,36 @@ $(document).ready(function() {
                         html +=
                             '<div class="form-group">' +
                             '<label class="col-sm-3 control-label"><?php echo $this->lang->line('imei_fields_description') ?></label>' +
-                            '<div class="col-sm-9 text">' + data.Description +
+                            '<div class="col-sm-9 text"><textarea id="autoExpandTextarea"></textarea>'
                             '</div>' +
                             '</div>'
                     }
 
                     $("#load-field-text").html(html);
+
+                    if (data.Description) {
+                        // Use setTimeout to ensure the DOM has been updated
+                        setTimeout(() => {
+                            const textarea = document.getElementById('autoExpandTextarea');
+                            
+                            if (textarea) {
+                                function setTextAndResize(text) {
+                                    textarea.value = text;
+                                    textarea.style.height = 'auto';
+                                    textarea.style.height = textarea.scrollHeight + 'px';
+                                    textarea.style.overflow = 'hidden';
+                                    textarea.style.resize = 'none';
+                                    textarea.style.border = 'none';
+                                }
+
+                                const longText = data.Description;
+
+                                setTextAndResize(longText);
+                            } else {
+                                console.error('Textarea not found');
+                            }
+                        }, 0);
+                    }
                 }
             });
         } else {
