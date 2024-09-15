@@ -86,7 +86,10 @@ class serverrequest extends FSD_Controller
         $length     = $_REQUEST['length'];
         $cari_data  = $_REQUEST['search']['value'];
 
-		$datas = $this->serverbox_model->service_with_boxes_new($cari_data);
+		// Get sorting parameters
+		$order_dir = $this->input->post('order')[0]['dir'];
+
+		$datas = $this->serverbox_model->service_with_boxes_new($cari_data, $order_dir);
 
         $total = 9999999;
         $array_data = array();

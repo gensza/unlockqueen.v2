@@ -39,6 +39,15 @@
     .table>tbody>tr>td {
         padding: 0px !important;
     }
+
+    table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:after, table.dataTable.table-sm .sorting_desc:after {
+        padding-top: 10px;
+    }
+
+    table.dataTable.table-sm .sorting:before, table.dataTable.table-sm .sorting_asc:before, table.dataTable.table-sm .sorting_desc:before {
+        top: 5px;
+        right: 10px;
+    }
 </style>
 <div class="page-header">
     <div class="d-flex justify-content-between">
@@ -108,20 +117,23 @@ $(document).ready(function() {
         },
         columns: [
             {
-                data: "title"
+                data: "title",
+                orderable: true
             },
             {
-                data: "delivery_time"
+                data: "delivery_time",
+                orderable: false
             },
             {
-                data: "price"
+                data: "price",
+                orderable: false
             }
         ],
         pagingType: "input",
         "processing": true,
         "serverSide": true,
         bInfo: false,
-        ordering: false,
+        ordering: true,
         deferRender: true,
         searching: true,
         lengthChange: false,

@@ -1,43 +1,53 @@
 <style>
-@media screen and (max-width: 767px) {
-    .main-panel .page-header .breadcrumbs {
-        margin-left: 0;
-        padding-top: 5px;
-        padding-left: 5px;
-        padding-bottom: 0;
-        border-left: 0;
+    @media screen and (max-width: 767px) {
+        .main-panel .page-header .breadcrumbs {
+            margin-left: 0;
+            padding-top: 5px;
+            padding-left: 5px;
+            padding-bottom: 0;
+            border-left: 0;
+        }
+
+        p {
+            font-size: 10px;
+        }
+
+        .table thead th {
+            font-size: 10px;
+        }
+
+        .card-header .card-title {
+            font-size: 12px;
+        }
+
+        .card .card-body, .card-light .card-body {
+            padding-top: 0px;
+        }
     }
 
-    p {
-        font-size: 10px;
+    div.dataTables_wrapper div.dataTables_filter input {
+        display: inline-block;
+        width: 340px;
+        padding: 10px;
     }
 
-    .table thead th {
-        font-size: 10px;
+    .dataTables_wrapper .dataTables_filter {
+        float: left;
     }
 
-    .card-header .card-title {
-        font-size: 12px;
+    .table>tbody>tr>td{
+        padding: 0px !important;
     }
 
-    .card .card-body, .card-light .card-body {
-        padding-top: 0px;
+
+    table.dataTable.table-sm .sorting:after, table.dataTable.table-sm .sorting_asc:after, table.dataTable.table-sm .sorting_desc:after {
+        padding-top: 10px;
     }
-}
 
-div.dataTables_wrapper div.dataTables_filter input {
-    display: inline-block;
-    width: 340px;
-    padding: 10px;
-}
-
-.dataTables_wrapper .dataTables_filter {
-    float: left;
-}
-
-.table>tbody>tr>td{
-    padding: 0px !important;
-}
+    table.dataTable.table-sm .sorting:before, table.dataTable.table-sm .sorting_asc:before, table.dataTable.table-sm .sorting_desc:before {
+        top: 5px;
+        right: 10px;
+    }
 </style>
 <div class="page-header">
     <div class="d-flex justify-content-between">
@@ -110,13 +120,16 @@ $(document).ready(function() {
         },
         columns: [
             {
-                data: "title"
+                data: "title",
+                orderable: true
             },
             {
-                data: "delivery_time"
+                data: "delivery_time",
+                orderable: false
             },
             {
-                data: "price"
+                data: "price",
+                orderable: false
             }
         ],
 
@@ -124,7 +137,7 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         bInfo: false,
-        ordering: false,
+        ordering: true,
         deferRender: true,
         searching: true,
         lengthChange: false,
@@ -135,7 +148,7 @@ $(document).ready(function() {
         drawCallback: function(res) {
             $('div.dataTables_wrapper div.dataTables_paginate').css('display', 'none');
             var response = res.json;
-        }
+        },
     });
 });
 

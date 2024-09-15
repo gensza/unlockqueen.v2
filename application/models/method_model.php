@@ -89,25 +89,48 @@ class method_model extends CI_Model
         return $data;
     }      
 	
-	public function method_with_networks_list($cari_data = NULL) 
+	public function method_with_networks_list($cari_data = NULL, $order_dir = NULL) 
 	{
-        $data = array();
-        $query = $this->db->get($this->tbl_networks);
-        foreach ($query->result_array() as $network) 
-        {
-            $network_id = $network['ID'];
-            $data[$network_id]['Title'] = $network['Title'];
-        }
-                
+		$data = array();
+
+		// First, get all networks
+		$network_query = $this->db->get($this->tbl_networks);
+		$networks = $network_query->result_array();
+	
+		// Then, get all methods
 		$this->db->like('Title', $cari_data);
 		$this->db->where('Status', 'Enabled');
-		$query = $this->db->get($this->tbl_name);
-        foreach ($query->result_array() as $method) 
-        {
-            $network_id = $method['NetworkID'];
-            $data[$network_id]['methods'][] = $method;
-        }
-        return $data;
+		$method_query = $this->db->get($this->tbl_name);
+		$methods = $method_query->result_array();
+	
+		// Group methods by NetworkID
+		$grouped_methods = array();
+		foreach ($methods as $method) {
+			$network_id = $method['NetworkID'];
+			if (!isset($grouped_methods[$network_id])) {
+				$grouped_methods[$network_id] = array();
+			}
+			$grouped_methods[$network_id][] = $method;
+		}
+	
+		// Combine networks and methods
+		foreach ($networks as $network) {
+			$network_id = $network['ID'];
+			$data[$network_id] = array(
+				'ID' => $network_id,
+				'Title' => $network['Title'],
+				'methods' => isset($grouped_methods[$network_id]) ? $grouped_methods[$network_id] : array()
+			);
+		}
+	
+		// Sort the final array based on ID
+		if (strtoupper($order_dir) === 'ASC') {
+			krsort($data);
+		} else {
+			ksort($data);
+		}
+	
+		return $data;
     } 
 	
 	public function get_api_credentials($id) 

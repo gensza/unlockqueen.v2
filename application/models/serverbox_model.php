@@ -65,24 +65,47 @@ class serverbox_model extends CI_Model
         return $data;
     }
 
-    public function service_with_boxes_new($cari_data = NULL) 
+    public function service_with_boxes_new($cari_data = NULL,$order_dir = NULL) 
 	{
         $data = array();
-        $query = $this->db->get($this->tbl_name);
-        foreach ($query->result_array() as $box) 
-        {
-            $box_id = $box['ID'];
-            $data[$box_id]['Title'] = $box['Title'];
-        }
 
+        // Get all boxes
+        $box_query = $this->db->get($this->tbl_name);
+        $boxes = $box_query->result_array();
+    
+        // Get all services
         $this->db->like('Title', $cari_data);
-		$this->db->where('Status', 'Enabled');
-		$query = $this->db->get($this->tbl_services);
-        foreach ($query->result_array() as $service) 
-        {
+        $this->db->where('Status', 'Enabled');
+        $service_query = $this->db->get($this->tbl_services);
+        $services = $service_query->result_array();
+    
+        // Group services by ServerBoxID
+        $grouped_services = array();
+        foreach ($services as $service) {
             $box_id = $service['ServerBoxID'];
-            $data[$box_id]['services'][] = $service;
+            if (!isset($grouped_services[$box_id])) {
+                $grouped_services[$box_id] = array();
+            }
+            $grouped_services[$box_id][] = $service;
         }
+    
+        // Combine boxes and services
+        foreach ($boxes as $box) {
+            $box_id = $box['ID'];
+            $data[$box_id] = array(
+                'ID' => $box_id,
+                'Title' => $box['Title'],
+                'services' => isset($grouped_services[$box_id]) ? $grouped_services[$box_id] : array()
+            );
+        }
+    
+        // Sort the final array based on ID
+        if (strtoupper($order_dir) === 'ASC') {
+            krsort($data);
+        } else {
+            ksort($data);
+        }
+    
         return $data;
     }
     

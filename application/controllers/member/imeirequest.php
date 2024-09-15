@@ -70,7 +70,10 @@ class imeirequest extends FSD_Controller
         $length     = $_REQUEST['length'];
         $cari_data  = $_REQUEST['search']['value'];
 
-		$datas = $this->method_model->method_with_networks_list($cari_data);
+		// Get sorting parameters
+		$order_dir = $this->input->post('order')[0]['dir'];
+
+		$datas = $this->method_model->method_with_networks_list($cari_data, $order_dir);
 
         $total = 9999999;
         $array_data = array();
