@@ -20,15 +20,16 @@
                                 <th>Description</th>
                                 <th width="5%">Amount</th>
                                 <th width="15%">Date Time</th>
+                                <th width="5%">Action</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
                 <?php echo form_close(); ?>
                 
-                <?php echo form_open('admin/credit/remove', array('method' => 'post', 'id' => 'removeCreditForm')); ?>
+                <!-- <?php echo form_open('admin/credit/remove', array('method' => 'post', 'id' => 'removeCreditForm')); ?>
                     <button type="submit" class="btn btn-danger">Remove Credit <i class="fa fa-minus"></i></button>
-                <?php echo form_close(); ?>
+                <?php echo form_close(); ?> -->
 
                 <a href="<?php echo site_url('admin/credit/add'); ?>" class="btn btn-success">Add Credit <i class="fa fa-plus"></i></a>
             </div>
@@ -68,7 +69,8 @@ $(document).ready(function() {
             { "data": "Name" },
             { "data": "Description" },
             { "data": "Amount" },
-            { "data": "CreatedDateTime" }
+            { "data": "CreatedDateTime" },
+            { "data": "action" }
         ]
     });
 });

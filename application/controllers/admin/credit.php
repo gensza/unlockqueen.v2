@@ -77,7 +77,14 @@ class credit extends FSD_Controller
 		$this->credit_model->insert($data);
 			// $this->session->set_flashdata('success', 'Record added successfully.');
 			// redirect("admin/credit/");
-	}	
+	}
+
+	public function delete($id)
+	{
+		$this->credit_model->delete($id);
+		$this->session->set_flashdata('success', 'Record delete successfully.');
+		redirect("admin/credit/");
+	}
 }
 
 /* End of file credit.php */

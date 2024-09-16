@@ -149,11 +149,17 @@ class credit_model extends CI_Model
 	public function get_datatable()
 	{
 		$this->load->library('datatables');
+
+		$oprations = '';
+		$oprations .= '<a href="'.site_url("admin/credit/delete/$1").'" title="Delete this record" class="tip" onclick="return confirm(\'Are sure want to delete this record?\');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+
 		$this->datatables
 				->select("$this->tbl_name.ID, CONCAT($this->tbl_name.TransactionCode, $this->tbl_name.TransactionID) AS Code, CONCAT($this->mem_tbl.FirstName, ' ', $this->mem_tbl.LastName) AS Name", FALSE)
 				->select("$this->tbl_name.Description, $this->tbl_name.Amount, $this->tbl_name.CreatedDateTime", TRUE)
 				->from($this->tbl_name)
-				->join($this->mem_tbl, "$this->tbl_name.MemberID=$this->mem_tbl.ID", "left");		
+				->join($this->mem_tbl, "$this->tbl_name.MemberID=$this->mem_tbl.ID", "left")
+				->add_column('action', $oprations, 'ID');		
+	
 		return $this->datatables->generate();
 	}
 }
